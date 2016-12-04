@@ -12,7 +12,7 @@ Serial test;
 // String PORT = "COM7";
 // int BAUDRATE = 250000;
 
-// Please chage here
+// Please change here
 String PORT = "COM7";
 int BAUDRATE = 250000;
 
