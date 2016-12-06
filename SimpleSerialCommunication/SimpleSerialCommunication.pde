@@ -8,18 +8,18 @@
 import processing.serial.*;
 Serial test;
 
-// Haruki's printer setting
+// Haruki's printer setting (Windows & NinjaPrinter)
 // String PORT = "COM7";
 // int BAUDRATE = 250000;
 
-// Please change here
-String PORT = "COM7";
-int BAUDRATE = 250000;
+// for Sikuli Lab (Mac & PrintrBot)
+String PORT = "/dev/cu.usbmode1421";
+int BAUDRATE = 115200;
 
 
 // SETUP ==========
 void setup(){
-  size(256, 256);
+  size(640, 360);
   textAlign(CENTER);
   textSize(30);
   test = new Serial(this, PORT, BAUDRATE);
@@ -27,6 +27,7 @@ void setup(){
 
 // DRAW ==========
 void draw(){
+  background(51);
   text("click here",height/2,width/2);
 }
 
