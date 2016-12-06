@@ -12,8 +12,9 @@ Serial test;
 // String PORT = "COM7";
 // int BAUDRATE = 250000;
 
-// for Sikuli Lab (Mac & PrintrBot)
-String PORT = "/dev/cu.usbmode1421";
+// for Sikuli Lab setting (Mac & PrintrBot)
+//String PORT = "/dev/cu.usbmode1421";
+String PORT = Serial.list()[0];
 int BAUDRATE = 115200;
 
 
