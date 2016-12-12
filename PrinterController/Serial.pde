@@ -26,25 +26,17 @@ Serial connectPrinter(String com, int baud) {
 // Use readString() method to capture this data.
 StringBuilder sb=null;
 void serialEvent(Serial thisPort) {
-  if (sb==null) {
-    sb=new StringBuilder();
-  }
-  String readSt=thisPort.readString();
-  if (readSt.equals("\n")) {
-    //println(sb);
-    String str=sb.toString();
-    if (str.indexOf("T:")!=-1) {
-    } else if (str.equals("ok")) {
-      println("3Dprinter: " + str);
+  println("serial event is triggered");
+  
+  byte[] buf = thisPort.readBytesUntil('\n');
+  if(buf != null){
+    String str=new String(buf);
+    str = str.trim();
+      println(str);
       
       // If 3D printer returns "ok" after recieving a data
-      gcode.setAccess(true);
-      
-    } else {
-      //println("3Dprinter: " + str);
-    }
-    sb=null;
-    return;
+      if(str.indexOf("ok") != -1){
+        gcode.setAccess(true);
+      }
   }
-  sb.append(readSt);
 }
