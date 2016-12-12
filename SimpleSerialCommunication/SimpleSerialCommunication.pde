@@ -13,13 +13,16 @@ Serial test;
  //int BAUDRATE = 250000;
 
 // for Sikuli Lab setting (Mac & PrintrBot)
-//String PORT = "/dev/cu.usbmode1421";
-String PORT = Serial.list()[0];
+String PORT = "/dev/cu.usbmodem1421";
+//String portList [] = Serial.list();
+//String PORT = Serial.list()[4];
 int BAUDRATE = 57600;
 
 
 // SETUP ==========
 void setup(){
+  println("connected port: " + PORT);
+  
   size(640, 360);
   textAlign(CENTER);
   textSize(30);
@@ -46,14 +49,16 @@ void serialEvent(Serial thisPort) {
     String str=new String(buf);
     str = str.trim();
       println(str);
-  } else {
-    println("no incoming text from printer through serial");
-  }
+  } 
+  
+  //else {
+  //  println("no incoming text from printer through serial");
+  //}
 }
 
 // mouseClicked ==========
 // send a Gcode
 void mouseClicked(){
   println("mouse clicked");
-  test.write("M500\n");
+  test.write("G28\n");
 }
