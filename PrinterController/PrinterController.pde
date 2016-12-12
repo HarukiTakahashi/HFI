@@ -33,8 +33,12 @@ import java.util.regex.*;
 
 
 // ********** Please chage here **********
-String PORT = "COM7";
-int BAUDRATE = 250000;
+//String PORT = "COM7";
+//int BAUDRATE = 250000;
+
+//String PORT = Serial.list()[0];
+String PORT = "/dev/cu.usbmodem1421";
+int BAUDRATE = 57600;
 
 // size of Queue
 // up to 128?
@@ -82,7 +86,7 @@ void mouseDragged(){
   // Debug
   ellipse(mouseX,mouseY,10,10);
   
-  String g = createGcode("G1",mapX,mapY,0,0,3600); // G1, X, Y, Z, E, F
+  String g = createGcode("G1",mapX,mapY,2,0,3600); // G1, X, Y, Z, E, F
   // debug
   //println(g);
   tmp.add(g);
