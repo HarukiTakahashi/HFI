@@ -60,7 +60,6 @@ public static class PrinterSetting {
   // print all field
   public static void print() {
     for (Field f : PrinterSetting.class.getDeclaredFields()) {
-      f.setAccessible(false);
       println(" > " +  String.format("%6s", f.getType())+" "+f.getName());
     }
   }

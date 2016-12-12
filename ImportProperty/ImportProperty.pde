@@ -41,6 +41,5 @@ void setup() {
 
   // !!! this substitution is available !!!
   // I'd like to prevent it...
-  PrinterSetting.PRINTER_BASE_X = 100;
 
 }
