@@ -9,13 +9,13 @@ import processing.serial.*;
 Serial test;
 
 // Haruki's printer setting (Windows & NinjaPrinter)
- String PORT = "COM7";
- int BAUDRATE = 250000;
+ //String PORT = "COM7";
+ //int BAUDRATE = 250000;
 
 // for Sikuli Lab setting (Mac & PrintrBot)
 //String PORT = "/dev/cu.usbmode1421";
-//String PORT = Serial.list()[0];
-//int BAUDRATE = 115200;
+String PORT = Serial.list()[0];
+int BAUDRATE = 57600;
 
 
 // SETUP ==========
@@ -24,6 +24,9 @@ void setup(){
   textAlign(CENTER);
   textSize(30);
   test = new Serial(this, PORT, BAUDRATE);
+  if(test != null){
+    println("Serial port initiated, now printer is connected");
+  }
 }
 
 // DRAW ==========
@@ -36,16 +39,21 @@ void draw(){
 // SerialEvent ==========
 // Called when data is available. 
 void serialEvent(Serial thisPort) {
+  println("serial event is triggered");
+  
   byte[] buf = thisPort.readBytesUntil('\n');
   if(buf != null){
-  String str=new String(buf);
-  str = str.trim();
-    println(str);
+    String str=new String(buf);
+    str = str.trim();
+      println(str);
+  } else {
+    println("no incoming text from printer through serial");
   }
 }
 
 // mouseClicked ==========
 // send a Gcode
 void mouseClicked(){
-  test.write("M105\n");
+  println("mouse clicked");
+  test.write("M500\n");
 }
