@@ -18,10 +18,13 @@ int lightValue;
 int flexValue;
 int tempValue;
 int potValue;
-bool flag = false;
+
+bool ambient = false;
+bool low = false;
+bool high = false;
 
 void setup() {
-  // Serial.begin(9600);
+  Serial.begin(9600);
   pinMode (lightPin, INPUT);
   pinMode (flexPin, INPUT);
   pinMode (tempPin, INPUT);
@@ -34,20 +37,26 @@ void loop() {
   tempValue = analogRead(tempPin);
   potValue = analogRead(potPin);
 
-  if (lightValue < 700){
+  if (lightValue < 700 and low != true){
     //Serial.print("Light Value = ");
     Serial.println(2400);
-    flag = false;
+    ambient = false;
+    low = true;
+    high = false; 
   }
-  else if (lightValue == constrain(lightValue,800,900)){
+  else if (lightValue == constrain(lightValue,800,900) and high != true){
     //Serial.print("Light Value = ");
     Serial.println(1200);
-    flag = false;
+    ambient = false;
+    low = false;
+    high = true; 
   }
-  else if (lightValue > 900 and flag != true){
+  else if (lightValue > 900 and ambient != true){
     //Serial.print("Light Value = ");
     Serial.println(800);
-    flag = true;
+    ambient = true;
+    low = false;
+    high = false;
   }
   if (flexValue != constrain(flexValue, 570, 600)){
     //Serial.print("Flex Value = ");
