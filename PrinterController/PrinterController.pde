@@ -33,12 +33,12 @@ import java.util.regex.*;
 
 
 // ********** Please chage here **********
-//String PORT = "COM7";
-//int BAUDRATE = 250000;
+String PORT = "COM7";
+int BAUDRATE = 250000;
 
 //String PORT = Serial.list()[0];
-String PORT = "/dev/cu.usbmodem1421";
-int BAUDRATE = 57600;
+//String PORT = "/dev/cu.usbmodem1421";
+//int BAUDRATE = 57600;
 
 // size of Queue
 // up to 128?
