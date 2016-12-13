@@ -1,8 +1,8 @@
 /* ====================================================
- Project : HPI 
+ Project : HPI
  Author : Haruki Takahashi
  Date : Dec 3, 2016
- 
+
  ==================================================== */
 
 import processing.serial.*;
@@ -12,15 +12,18 @@ import java.util.Properties;
 import java.lang.reflect.*;
 
 // ********** Printer **********
-String PRINTER_PORT = "COM7";
-int PRINTER_BAUDRATE = 250000;
+// String PRINTER_PORT = "COM7";
+// int PRINTER_BAUDRATE = 250000;
 
-//String PORT = Serial.list()[0];
-//String PORT = "/dev/cu.usbmodem1421";
-//int BAUDRATE = 57600;
+String PORT [] = Serial.list();
+String PRINTER_PORT = "/dev/cu.usbmodem1421";
+int PRINTER_BAUDRATE = 57600;
 
 // ********** Sensors (Arduino) **********
-String SENSOR_PORT = "COM3";
+// String SENSOR_PORT = "COM3";
+// int SENSOR_BAUDRATE = 9600;
+
+String SENSOR_PORT = "/dev/cu.usbmodem1411"; //do we need sensor port?
 int SENSOR_BAUDRATE = 9600;
 
 // size of Queue
@@ -45,8 +48,10 @@ void setup() {
   printer = connectPrinter(PRINTER_PORT, PRINTER_BAUDRATE);
   sensor = connectSensor(SENSOR_PORT, SENSOR_BAUDRATE);
 
+  println(PORT); //see all available port list
+
   // Queue
-  gcode = new GcodeQueue(bufferSize); 
+  gcode = new GcodeQueue(bufferSize);
   tmp = new Queue(10000); // sufficiently large size
 
   // Thread
@@ -54,7 +59,7 @@ void setup() {
   Sender reader = new Sender(gcode);
   QM.start();
   reader.start();
- 
+
 }
 
 
@@ -65,16 +70,17 @@ void draw() {
 
 // create gcode using argments
 String createGcode(String g, float x, float y, float z, float e, float f) {
-  return g + " X" + String.format("%1$.0f", x) + " Y" + y + " Z" + z + " E" + e + " F" + f + "\n"; // newline character is needed!
+  return g + " X" + String.format("%1$.0f", x) + " Y" + y + " Z" + z + " E" + e + " F" + String.format("%1$.0f", f) + "\n"; // newline character is needed!
 }
 
 // this method called from serialEvent()
-void variableResistance(float vr_value) {
+void variableResistance(float vr_value, float lightValue) {
 
   // mapping
   float x = (vr_value / SensorRange.VARIABLE_RESISTANCE_MAX ) * PrinterSetting.PRINTER_BASE_X;
+  float f = lightValue;
 
-  String g = createGcode("G1", x, 0, 2, 0, 7200); // G1, X, Y, Z, E, F
+  String g = createGcode("G1", x, 0, 2, 0, f); // G1, X, Y, Z, E, F
   // debug
   //println(g);
   tmp.add(g);

@@ -3,7 +3,7 @@ void setup() {
 }
 void loop() {
      int ans ;
-     ans = analogRead(0) ;
+     ans = analogRead(A0) ;
      Serial.println(ans) ;
      delay(100) ;
 }
