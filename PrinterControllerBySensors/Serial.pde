@@ -54,7 +54,7 @@ void serialEvent(Serial thisPort) {
           }
         }
       }
-    }  
+    }
     if (sensor != null) {
       if (thisPort == sensor) {
         byte[] buf = thisPort.readBytesUntil('\n');
@@ -62,7 +62,7 @@ void serialEvent(Serial thisPort) {
           String str=new String(buf);
           str = str.trim();
           println(" - sensors message > " + str);
-          variableResistance(Float.parseFloat(str));
+          variableResistance(Float.parseFloat(str), Float.parseFloat(str));
         }
       }
     }
