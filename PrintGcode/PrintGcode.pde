@@ -21,10 +21,13 @@ GCode gcode=null;
 
 
 // Please change here ==========
-String PORT = "COM5";
-int BAUDRATE = 250000;
-String FILENAME = "test.gcode";
+//String PORT = "COM5";
+//int BAUDRATE = 250000;
+//String FILENAME = "test.gcode";
 
+String PORT = Serial.list()[0];
+int BAUDRATE = 57600;
+String FILENAME = "cube.gcode";
 
 void setup() {
   size(640, 480, P3D);

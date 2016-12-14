@@ -19,7 +19,7 @@ void connectPrinter(String com, int baud) {
   }
   tmp.write("G28\n");// home position
   println("send to pinter: G28");
-  tmp.write("M84\n");// 
+  tmp.write("M84\n");//
   println("send to pinter: M84");
   printer=tmp;
 }
@@ -28,4 +28,5 @@ void connectPrinter(String com, int baud) {
 void setHeater(boolean on) {
   printer.write((on)?"M104 S210\n":"M104 S0\n");
   println("send to pinter: "+((on)?"M104 S210":"M104 S0"));
+  printer.write("M116"); //wait until sufficient env. is set
 }
