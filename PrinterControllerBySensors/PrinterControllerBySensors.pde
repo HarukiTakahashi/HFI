@@ -74,13 +74,23 @@ String createGcode(String g, float x, float y, float z, float e, float f) {
 }
 
 // this method called from serialEvent()
-void variableResistance(float vr_value, float lightValue) {
+float x = 50, y = 50, z = 10, e = 0, f = 4800;
+void variableResistance(float vr_value) {
 
   // mapping
-  float x = (vr_value / SensorRange.VARIABLE_RESISTANCE_MAX ) * PrinterSetting.PRINTER_BASE_X;
-  float f = lightValue;
+  // String [] value = split(vr_value, ':');
+  // println("sensor: " + value[0] + "value: " + value[1]);
+  if(vr_value < 10000) //light values
+    f = vr_value;//this is already calibrated from SensorValue
+  else if(vr_value < 100000) //flex sensor values
+    z = vr_value - 10000;
+  else if(vr_value < 10000000) //pot slider values
+    x = vr_value - 1000000;
+  // float x = (vr_value / SensorRange.VARIABLE_RESISTANCE_MAX ) * PrinterSetting.PRINTER_BASE_X;
 
-  String g = createGcode("G1", x, 0, 2, 0, f); // G1, X, Y, Z, E, F
+  println("x: " + x + ", z: " + z + ", f: " + f);
+
+  String g = createGcode("G1", x, 0, z, 0, f); // G1, X, Y, Z, E, F
   // debug
   //println(g);
   tmp.add(g);
@@ -90,6 +100,7 @@ void variableResistance(float vr_value, float lightValue) {
 
 void mouseClicked(){
  tmp.add("M105\n");
+ // tmp.add("M112\n"); //consider stop right away and reset
 }
 
 // Test =======================================

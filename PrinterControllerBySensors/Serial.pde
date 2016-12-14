@@ -31,7 +31,7 @@ Serial connectSensor(String com, int baud) {
   }
   catch(Exception e) {
   }
-
+  
   return tmp;
 }
 
@@ -62,7 +62,8 @@ void serialEvent(Serial thisPort) {
           String str=new String(buf);
           str = str.trim();
           println(" - sensors message > " + str);
-          variableResistance(Float.parseFloat(str), Float.parseFloat(str));
+          variableResistance(Float.parseFloat(str));
+          // variableResistance(str); // to read multiple sensor values with tag
         }
       }
     }

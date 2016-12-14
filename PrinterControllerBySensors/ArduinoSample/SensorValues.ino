@@ -29,6 +29,8 @@ void setup() {
   pinMode (flexPin, INPUT);
   pinMode (tempPin, INPUT);
   pinMode (potPin, INPUT);
+
+  Serial.println("SensorValue.ino is initiated");
 }
 
 void loop() {
@@ -39,21 +41,21 @@ void loop() {
 
   if (lightValue < 700 and low != true){
     //Serial.print("Light Value = ");
-    Serial.println(2400);
+    Serial.println(4800);
     ambient = false;
     low = true;
-    high = false; 
+    high = false;
   }
-  else if (lightValue == constrain(lightValue,800,900) and high != true){
+  else if (lightValue == constrain(lightValue, 800, 900) and high != true){
     //Serial.print("Light Value = ");
-    Serial.println(1200);
+    Serial.println(2400);
     ambient = false;
     low = false;
-    high = true; 
+    high = true;
   }
   else if (lightValue > 900 and ambient != true){
     //Serial.print("Light Value = ");
-    Serial.println(800);
+    Serial.println(1200);
     ambient = true;
     low = false;
     high = false;
@@ -61,16 +63,16 @@ void loop() {
   if (flexValue != constrain(flexValue, 570, 600)){
     //Serial.print("Flex Value = ");
     flexValue = (flexValue-260)/3.15;
-    Serial.println(flexValue);
+    Serial.println(flexValue + 10000); //to distinguish sensor type by value range
   }
   if (tempValue > 68){
     //Serial.print("Tempature = ");
-    Serial.println(tempValue);
+    Serial.println(tempValue + 100000);
   }
   if (potValue != constrain(potValue, 149, 250)){
     //Serial.print("Potentiometer = ");
     potValue = potValue/7;
-    Serial.println(potValue);
+    Serial.println(potValue + 1000000);
   }
 
   delay(500);
