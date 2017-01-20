@@ -19,7 +19,7 @@ class QueueManage extends Thread {
         catch (InterruptedException e) {
         }
       }
-      println("q to q move!");
+      //println("q to q move!");
       Object obj = q.poll();
       gq.add(obj);
     }

@@ -1,20 +1,23 @@
 // transfer a data from Queue to GcodeQueue
 class QueueManage extends Thread {
-  private Queue gq;
+  private GcodeQueue gq;
   private Queue q;
 
   // constructor
-  public QueueManage(Queue gq, Queue q) {
+  public QueueManage(GcodeQueue gq, Queue q) {
     this.gq = gq;
     this.q = q;
   }
 
   public void run() {
     while (true) {
-      try {
-        Thread.sleep(1);
-      } 
-      catch (InterruptedException e) {
+      // accessible ?
+      while (!gq.access) {
+        try {
+          Thread.sleep(1);
+        } 
+        catch (InterruptedException e) {
+        }
       }
       Object obj = q.poll();
       gq.add(obj);

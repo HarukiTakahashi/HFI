@@ -22,7 +22,7 @@ class LeapListener extends Listener {
       PVector fp = new PVector(finger.tipPosition().getX(), finger.tipPosition().getY(), finger.tipPosition().getZ());
       fingerAve.put(finger, fp);
       
-      for(int i = 0; i < 30;i++){
+      for(int i = 0; i < 50;i++){
          for (Finger finger2 : controller.frame(i).fingers()){
            if(finger.id() == finger2.id()){
              PVector fp2 = new PVector(finger2.tipPosition().getX(), finger2.tipPosition().getY(), finger2.tipPosition().getZ());

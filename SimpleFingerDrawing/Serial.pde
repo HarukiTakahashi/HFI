@@ -11,10 +11,20 @@ Serial connectPrinter(String com, int baud) {
   // check the connection ==========
   tmp.write("G28\n");// home position
   println("send to pinter: G28");
+  tmp.write("G90\n");// home position
+  println("send to pinter: G90");
+  
+  tmp.write("M83\n");// home position
+  println("send to pinter: M83");
+  
+  
   tmp.write("M84\n");// unlock motors
   println("send to pinter: M84");
-  tmp.write("G1 Z10\n");// unlock motors
+  tmp.write("G1 Z0.5\n");// unlock motors
   println("send to pinter: G1 Z10");
+  tmp.write("M104 S220\n");// unlock motors
+  println("send to pinter: M104 S220");
+  
   // check the connection ==========
   
   

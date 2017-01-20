@@ -21,6 +21,12 @@ int calibFlag = -1;
 PVector[] calibration;
 
 boolean DrawingFlag = false;
+
+// for picture
+boolean DrawingFlagOn = false;
+PVector previousPoint = null;
+
+
 int move_y = 200;
 
 
@@ -69,6 +75,8 @@ void setup()
   QM.start();
   sender.start();
   
+  previousPoint = new PVector();
+
   textSize(16);
 }
 
@@ -96,14 +104,34 @@ void draw()
       PVector posOnSketch = mapping(position);
       if (posOnSketch != null) {
         text("Mapped \n x:"  + posOnSketch.x + "\n y:" + posOnSketch.y, 200, 50);
+        
 
         if (DrawingFlag) {
-          gcode.setAccess(false);
-          String g = "G1" + " X"+posOnSketch.x + " Y"+posOnSketch.y+" F3600\n";
-          tmp.add(g);
+          if (!DrawingFlagOn) {
+            gcode.setAccess(false);
+            String g = "G0" + " X"+posOnSketch.x + " Y"+posOnSketch.y+" F3600\n";
+            String g2 = "G1" + " E3 F1800\n";
+            previousPoint.x = posOnSketch.x;
+            previousPoint.y = posOnSketch.y;
+            
+            tmp.add(g);
+            tmp.add(g2);
+            DrawingFlagOn = true;
+          } else {
+            float len = PVector.dist(previousPoint, posOnSketch);
+            float E = 0;
+            if(len < 1){
+              posOnSketch = previousPoint;
+              E = 0;
+            }else{
+              E =  (0.4 * 2.4) / ((1.75/2)*(1.75/2)*PI) * len;
+            }
+            String g = "G1" + " X"+posOnSketch.x + " Y"+posOnSketch.y + " E" + E +" F500\n";
+            tmp.add(g);
+            previousPoint = posOnSketch;
+          }
         }
       }
-
       break;
     }
   }
@@ -197,6 +225,7 @@ void keyPressed() {
       gcode.setAccess(false);
     } else {
       DrawingFlag = false;
+      DrawingFlagOn = false;
       gcode.setAccess(true);
     }
   }
