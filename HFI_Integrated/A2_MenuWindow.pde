@@ -93,19 +93,38 @@ public class MenuWindow extends PApplet {
     if ( DDL_printer_ports != null && DDL_printer_rates != null) {
       if ( printer == null) {
         printer = connectPrinter(SERIAL_PORTS[(int)DDL_printer_ports.getValue()], BAUD_RATES[(int)DDL_printer_rates.getValue()]);
+
+        Button bt = (Button)cp5_Menu.getController("connect_printer");
+        bt.setColorBackground(color(255, 0, 0));
+        bt.setLabel("Disconnect");
+      } else {
+        InfoWin.printInfo("printer is disconnected");
+        printer.stop();
+        printer = null;
+        Button bt = (Button)cp5_Menu.getController("connect_printer");
+        bt.setColorBackground(color(0, 45, 90));
+        bt.setLabel("connect");
       }
     }
   }
 
   // not imlemented
-  void connect_senseor() {
-    if ( DDL_sensor_ports != null) {
-      //      println(SERIAL_PORTS[(int)DDL_sensor_ports.getValue()]);
+  void connect_sensor() {
+    if ( DDL_sensor_ports != null && DDL_sensor_rates != null) {
+      if ( sensor == null) {
+        sensor = connectSensor(SERIAL_PORTS[(int)DDL_sensor_ports.getValue()], BAUD_RATES[(int)DDL_sensor_rates.getValue()]);
+        Button bt = (Button)cp5_Menu.getController("connect_sensor");
+        bt.setColorBackground(color(255, 0, 0));
+        bt.setLabel("Disconnect");
+      } else {
+        InfoWin.printInfo("sensors are disconnected");
+        sensor.stop();
+        sensor = null;
+        Button bt = (Button)cp5_Menu.getController("connect_sensor");
+        bt.setColorBackground(color(0, 45, 90));
+        bt.setLabel("connect");
+      }
     }
-    if (DDL_sensor_rates != null) {
-      println(BAUD_RATES[(int)DDL_sensor_rates.getValue()]);
-    }
-    // sensor = connectSensor(SENSOR_PORT, SENSOR_BAUDRATE);
   }
   // ************************************************************************
 
@@ -120,6 +139,7 @@ public class MenuWindow extends PApplet {
       println("Window was closed or the user hit cancel.");
     } else {
       GCODE_FILE_NAME = selection.getAbsolutePath();
+
       Textfield t = (Textfield)cp5_Menu.getController("file_name");
       t.setText(GCODE_FILE_NAME);
 
@@ -144,7 +164,6 @@ public class MenuWindow extends PApplet {
     catch (Exception ex) {
       ex.printStackTrace();
     }
-    model.printStartCode();
   }
   // ************************************************************************
 

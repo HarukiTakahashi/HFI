@@ -6,7 +6,7 @@
 //
 // *********************************************************************
 
-InfoWindow InfoWin;
+public InfoWindow InfoWin;
 
 public class InfoWindow extends PApplet {
   PApplet parent;
@@ -45,16 +45,23 @@ public class InfoWindow extends PApplet {
     // window setting
     surface.setLocation(INFO_WINDOW_LOCATION[0], INFO_WINDOW_LOCATION[1]);
     surface.setTitle("Info");
+
     Info_GUISetting();
   }
-
   
   // ********************************************************************************
-  //  print some information to info window
+  //  draw - info win
+  //  Do not remove! 
+  // ********************************************************************************
+  void draw(){
+  }
+
+  // ********************************************************************************
+  //  print information to info window
   // ********************************************************************************  
-  void printInfo(String str){
-      String t = TA_info_window.getText();
-      TA_info_window.setText(t + str.trim() + "\n");
-      TA_info_window.scroll(100); // ?
+  public void printInfo(String str) {
+    str = str.trim();
+    TA_info_window.append(str+"\n");
+    TA_info_window.scroll(100);
   }
 }

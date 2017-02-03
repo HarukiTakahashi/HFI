@@ -7,7 +7,6 @@
 // *********************************************************************
 
 ControlP5 cp5_Info;
-
 Textarea TA_info_window;
 
 // *********************************************************************
@@ -16,7 +15,7 @@ Textarea TA_info_window;
 void Info_GUISetting() {
   cp5_Info = new ControlP5(InfoWin);
 
-  TA_info_window = cp5_Info.addTextarea("info_area")
+  TA_info_window = cp5_Info.addTextarea("info_textarea")
     .setPosition(0, 0)
     .setSize(INFO_WINDOW_SIZE[0], INFO_WINDOW_SIZE[1])
     .setFont(createFont("arial", 12))

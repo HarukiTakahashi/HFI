@@ -62,13 +62,13 @@ void Menu_GUISetting() {
     .setColor(color(0));
 
   // button ===========================================
-  cp5_Menu.addButton("connect_senseor")
+  cp5_Menu.addButton("connect_sensor")
     .setLabel("Connect")//テキスト
     .setPosition(200, 80)
     .setWidth(100)
     .setHeight(20)
-    .setFont(FontNormal)
-    .setColorCaptionLabel(color(255, 0, 0));
+    .setFont(FontSmall)
+    .setColorCaptionLabel(color(255));
 
 
   // dropdownlist for baudrate ========================
@@ -121,7 +121,7 @@ void Menu_GUISetting() {
     .setPosition(200, 20)
     .setWidth(100)
     .setHeight(20)
-    .setFont(FontNormal)
+    .setFont(FontSmall)
     .setColorCaptionLabel(color(255));
 
   // dropdownlist for baudrate ========================

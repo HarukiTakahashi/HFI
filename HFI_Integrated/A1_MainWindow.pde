@@ -40,7 +40,7 @@ public class MainWindow extends PApplet {
   //  setting -  main window
   // ********************************************************************************
   void settings() {
-    size ( MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1], P3D);
+    size ( MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1], OPENGL);
   }
 
   // ********************************************************************************
@@ -74,7 +74,7 @@ public class MainWindow extends PApplet {
       catch (Exception ex) {
         ex.printStackTrace();
       }
-    }   
+    }
   }
 
   // ********************************************************************************
@@ -105,9 +105,9 @@ public class MainWindow extends PApplet {
     }
   }
 
-// *********************************************************************
-//  draw a certain layer 
-// *********************************************************************
+  // *********************************************************************
+  //  draw a certain layer 
+  // *********************************************************************
   public void drawLayer(Layer l) {
     strokeWeight(0.2);
     stroke(color(200, 0, 0));
@@ -130,9 +130,9 @@ public class MainWindow extends PApplet {
     }
   }
 
-// *********************************************************************
-//  draw a platform grid
-// *********************************************************************
+  // *********************************************************************
+  //  draw a platform grid
+  // *********************************************************************
   public void drawPlatform() {
     strokeWeight(0.5);
     stroke(color(150));
@@ -144,10 +144,37 @@ public class MainWindow extends PApplet {
     }
   }
 
-// *********************************************************************
-//  clear window
-// *********************************************************************
+  // *********************************************************************
+  //  clear window
+  // *********************************************************************
   public void clearWin() {
     background(200);
   }
+
+  // *********************************************************************
+  //  draw sensor values
+  // *********************************************************************
+  public void drawSensorValues() {
+    hint(DISABLE_DEPTH_TEST);
+    camera();
+    fill(color(200,200,200));
+    rect(0, height-100, 300, 100);
+    fill(color(255,0,0));
+
+    strokeWeight(0.5);
+    stroke(color(150));
+    int i = 0;
+    for (String sensorName : SensorMap.keySet()) {
+      //println(sensorName);
+      float v = SensorMap.get(sensorName).getLatestValue();
+      v /= 10;
+      //println(v);
+      text(sensorName + ":" + (v*10),v+5, (height-100)+ (i+1)*16-4);
+      rect(0, (height-100)+i*16, v, 16);      
+      i++;
+    }
+    
+    hint(ENABLE_DEPTH_TEST);
+  }
+  
 }
