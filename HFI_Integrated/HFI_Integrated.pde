@@ -4,7 +4,6 @@
 //  Author   :  Haruki Takahashi
 //  
 //  Processing 3.2.3
-//    * I will add comments and make specification clear... 
 //  
 // *********************************************************************
 
