@@ -64,35 +64,40 @@ module minkowskiExtrusion(radius){
 }
 
 // scaleUp = T/F
-module scaleExtrusion(scaleFactor, t){
-  cropBox = cube([1000, 1000, t]); //big enough to crop the original object
+//h = the original heght of input model
+module scaleExtrusion(scaleFactor, h, t){
 
-  //h = the original heght of input model
-  scaledUpperPart = linear_extrude(height = (h-t))
-                      proejction(cut=true)  //to get top surface only
-                        translate([0,0,-t]) //since OpenSCAD takes projection at z=0,
-                                            //we need to get the top surface to extrude by mitigating the position
-                                            //to get the top surface polygon, translate top suface to z=0
-                          upperPart()
-
-  return
     union(){
-        scaledUppoerPart;
-        lowerPart;
+        scaledUpperPart();
+        lowerPart();
     }
+
+  module cropBox(){
+    cube([1000, 1000, t]); //big enough to crop the original object
+
+  }
+
+  module scaledUpperPart(){
+    linear_extrude(height = (h-t))
+        projection(cut=true)  //to get top surface only
+          translate([0,0,-t]) //since OpenSCAD takes projection at z=0,
+                              //we need to get the top surface to extrude by mitigating the position
+                              //to get the top surface polygon, translate top suface to z=0
+            upperPart();
+  }
 
   module upperPart(){
     intersection(){
       import(original);
       translate([0,0,t])
-        cropBox;
+        cropBox();
     }
   }
 
   module lowerPart(){
     intersection(){
       import(original);
-      cropbox;
+      cropbox();
     }
   }
 }
