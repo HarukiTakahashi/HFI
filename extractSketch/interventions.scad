@@ -56,10 +56,10 @@ module extrudeWith2DAnnotation(pos_x, pos_y, shape, scaleFactor, t1, t2){
 }
 
 //do minkowski corner
-module minkowskiExtrusion(){
+module minkowskiExtrusion(radius){
     minkowski(){
       import(original);
-      //cylinders at the edge-- in which radius??
+      //cylinders at the edges-- given radii annotated by users
     }
 }
 
