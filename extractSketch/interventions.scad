@@ -97,7 +97,7 @@ module scaleExtrusion(scaleFactor, h, t){
   module lowerPart(){
     intersection(){
       import(original);
-      cropbox();
+      cropbBox();
     }
   }
 }
